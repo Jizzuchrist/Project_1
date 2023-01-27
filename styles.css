@@ -1,0 +1,21 @@
+
+#game-board{
+    display:flex;
+    justify-content: center;
+    
+}
+
+#canvas {
+    background:url("./images/field.jpeg") no-repeat;
+    background-size: 100% 100%;
+}
+
+#button{
+ width: 7vw;
+ height: 7vh;
+ margin-left: 15px;
+}
+
+h1{
+font-family:
+}

@@ -22,11 +22,18 @@ document.addEventListener("keydown", (e) => {
         case "ArrowLeft" : 
             gun.speedX -= 4;
             break;
-    }
+        case "KeyW" :
+          
+              game.bullet.push(new Bullets (gun.x + 8 ,gun.y - 25 , 40, 40, ctx))
+              game.bullet.speedY -= 2;
+                break;
+          }
 })
+
 
 document.addEventListener("keyup", () => { 
   gun.speedX = 0;
   gun.speedY = 0;
 
 })
+

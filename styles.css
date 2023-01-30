@@ -12,11 +12,43 @@
 }
 
 #button{
- width: 7vw;
- height: 7vh;
+ width: 8vw;
+ height: 9vh;
  margin-left: 15px;
+ background-color: brown;
+ border-radius: 8px;
+ font-size: 19px;
+ color: greenyellow;
+ 
+/*  position: absolute;
+  left:  30%;
+  right: 30%;
+  bottom:30%;
+  top: 30%;
+  margin:10px;
+  padding:10px; */
 }
 
 h1{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#instruction{
+    font-size: 20px;
+    color: greenyellow;
+    background-color:brown;
+    margin-bottom: 7px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul{
+    background-color: brown;
+    color: greenyellow;
+    list-style: none;
+    height: 140px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background-color:brown;
 }

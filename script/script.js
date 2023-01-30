@@ -17,16 +17,23 @@ window.onload = () => {
 document.addEventListener("keydown", (e) => {
     switch(e.code){
         case "ArrowRight" : 
-            gun.speedX += 4; 
+            gun.speedX += 3; 
             break;
         case "ArrowLeft" : 
-            gun.speedX -= 4;
+            gun.speedX -= 3;
             break;
         case "KeyW" :
-          
-              game.bullet.push(new Bullets (gun.x + 8 ,gun.y - 25 , 40, 40, ctx))
+          if (game.magazine > 0){
+              game.magazine -= 1;
+              game.bullet.push(new Bullets (gun.x + 8 ,gun.y - 25 , 10, 40, ctx))
               game.bullet.speedY -= 2;
+            }
                 break;
+        case "KeyR" :
+          if(game.magazine === 0){
+            setTimeoutgame.magazine = 5;
+            }
+          break;
           }
 })
 

@@ -12,6 +12,7 @@ class Game {
       this.ducksLeft = [];
       this.ducksRight = [];
       this.bullet = [];
+      this.magazine = 5;
     }
 
     start() {

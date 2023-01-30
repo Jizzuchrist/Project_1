@@ -4,7 +4,7 @@ const canvas = document.getElementById("canvas");
 
 const ctx = canvas.getContext("2d");
 
-const gun = new Component(462.5, 475, 75, 125, ctx);
+const gun = new Component(462.5, 470, 80, 135, ctx);
 
 const game = new Game(ctx, canvas.width, canvas.height, gun);
 

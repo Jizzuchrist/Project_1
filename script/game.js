@@ -53,6 +53,7 @@ class Game {
         //bottom obstacle
         this.ducksLeft.push(new Ducks(0, width - gap, 70, 50, this.ctx));
       }
+      
     } 
     checkGameOver(){
       const  crashed = this.ducksLeft.some((ducks) => {

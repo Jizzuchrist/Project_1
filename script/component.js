@@ -13,7 +13,7 @@ class Component{
     }
 
     draw(){
-      this.image.src="../images/caçadeira.png"
+      this.image.src="../images/shotgun.png"
       ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
 
@@ -56,7 +56,7 @@ class Ducks extends Component {
         this.speedY = 0;
     }
     draw(){
-        this.image.src="../images/pato.jpeg"
+        this.image.src="../images/pato.png"
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){

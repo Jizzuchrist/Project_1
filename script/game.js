@@ -70,8 +70,14 @@ class Game {
           this.ducksLeft.splice(i,1)
           this.lifes -=1 ;
           this.score -=2 ;
+          let heartSpeed = Math.floor((Math.random() )* 4 - 4);
           setTimeout( () => {
-            this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx))}, 5000);
+            if (heartSpeed > 0){
+            this.heart.push(new Heart(0, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) ) }
+            else {
+              this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) )
+            }
+          }, 5000);
         }
         this.ducksLeft[i].x += 1;
         this.ducksLeft[i].draw();

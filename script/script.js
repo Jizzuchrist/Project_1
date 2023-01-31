@@ -8,6 +8,7 @@ const gun = new Component(462.5, 465, 65, 135, ctx);
 
 const game = new Game(ctx, canvas.width, canvas.height, gun);
 
+
 const reload_sound = new Audio("../sounds/First Shell.mp3");
 reload_sound.volume = 1;
 

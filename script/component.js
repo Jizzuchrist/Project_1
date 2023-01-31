@@ -165,5 +165,4 @@ class Heart extends Component{
     right(){
         return this.x + this.w;
     }
-
 }

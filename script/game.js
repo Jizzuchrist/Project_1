@@ -27,7 +27,9 @@ class Game {
       this.time = 0;
       this.duckX
       this.duckY
-
+      this.lifesImage = new Image();
+      this.lifesImage2 = new Image();
+      this.magazineImage = new Image();
     }
 
     start() {
@@ -43,13 +45,12 @@ class Game {
         this.gun.boundaries();
         /* this.bullet.draw(); */
         this.duckAnimation(this.duckX, this.duckY)
-
         this.updateBullets(); 
         this.updateObstaclesLeft();
         this.updateObstaclesRight();
         this.collisionDetectionLeft();
         this.collisionDetectionRight();
-        this.drawScore();
+        this.drawInfoImages();
         this.checkGameOver()
       
         /* this.checkGameOver(); */
@@ -71,7 +72,11 @@ class Game {
         this.ducksLeft[i].draw();
       }
       if (this.frames % 220 === 0) {
-        let y = Math.floor((Math.random() * 100 - 50) + 50);
+        let y = 0;
+          while (y <= 50 || y >= 150) {
+            y = Math.floor((Math.random() * 150) + 50);
+          }
+        /* let y = (Math.floor((Math.random() * 150) + 50)); */
         //calculate the height of the columns/ducksLeft
         //these variables control the size of the gap between obstacles
 /*         let minGap = 200;
@@ -98,7 +103,11 @@ class Game {
         /* console.log(this.ducksRight) */
       }
       if (this.frames % 220 === 0) {
-        let y = Math.floor((Math.random() * (200 - 100) + 100));
+        let y = 150;
+          while (y <= 150 || y >= 300) {
+            y = Math.floor((Math.random() * 200) + 150);
+          }
+       /*  let y = Math.floor((Math.random() * 250) + 150); */
         //calculate the height of the columns/ducksRight
         //these variables control the size of the gap between obstacles
 /*         let minGap = 300;
@@ -125,7 +134,7 @@ class Game {
       
     }
 
-    drawScore() {
+    drawInfoImages() {
 /*       ctx.fillRect(200, 100, 100, 100);
       ctx.clearRect(220, 120, 90, 90); */
       ctx.font = "20px Helvetica";
@@ -133,7 +142,41 @@ class Game {
       ctx.fillText(`Score: ${this.score}`, 80, 30);
       ctx.font = "20px Helvetica";
       ctx.fillStyle = "black";
-      ctx.fillText(`Lifes: ${this.lifes}`, 160, 30);
+      ctx.fillText(`Lives: `, 190, 30);
+      if (this.lifes === 2){
+        this.lifesImage.src="../images/heart.png"
+        this.lifesImage2.src="../images/emptyheart.png";
+        ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
+        ctx.drawImage(this.lifesImage, 280, 12, 25, 20);
+      } if( this.lifes === 1){
+        ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
+        ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+      }
+      ctx.font = "20px Helvetica";
+      ctx.fillStyle = "black";
+      ctx.fillText(`Ammo: `, 310, 30);
+      if (this.magazine === 5){
+        this.magazineImage.src="../images/bullet-info.png";
+        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 460, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 485, 20, 20, 10);
+      } else if (this.magazine === 4){
+        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 460, 20, 20, 10);        
+      } else if (this.magazine === 3){
+        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+      } else if (this.magazine === 2){
+        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);      
+      } else if (this.magazine === 1){
+        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+      }
     }
     /*     drawCollision(x, y){
       feather.image.src = "../images/feather.png";
@@ -157,10 +200,9 @@ class Game {
           if(this.bullet[d].crashWith(this.ducksLeft[c])){
             quack_sound.play();
             this.score += 2;
-         this.duckX= this.ducksLeft[c].x;
-          this.duckY = this.ducksLeft[c].y;
+            this.duckX = this.ducksLeft[c].x;
+            this.duckY = this.ducksLeft[c].y;
             this.animation = true; 
-            
             this.ducksLeft.splice(c,1);
             this.bullet.splice(d,1);
           /*    console.log(this.animation);  */
@@ -184,16 +226,16 @@ class Game {
        */
    
     collisionDetectionRight(){
-    for (let c = 0; c < this.ducksRight.length; c++){
-      for(let d = 0; d < this.bullet.length; d++){
-        if(this.bullet[d].crashWith(this.ducksRight[c])){
-          this.score += 2;
-          this.duckX= this.ducksRight[c].x;
-          this.duckY = this.ducksRight[c].y;
+      for (let c = 0; c < this.ducksRight.length; c++){
+        for(let d = 0; d < this.bullet.length; d++){
+          if(this.bullet[d].crashWith(this.ducksRight[c])){
+            this.score += 2;
+            this.duckX= this.ducksRight[c].x;
+            this.duckY = this.ducksRight[c].y;
             this.animation = true; 
-          quack_sound.play();
-          this.ducksRight.splice(c,1);
-          this.bullet.splice(d,1);
+            quack_sound.play();
+            this.ducksRight.splice(c,1);
+            this.bullet.splice(d,1);
          /*  feather.image.src = "../images/feather.png";
           ctx.drawImage(feather, this.ducksRight[c].x, this.ducksRight[c].y, this.ducksRight[c].w, this.ducksRight[c].h); */
         }
@@ -202,6 +244,8 @@ class Game {
   }
   checkGameOver(){
      if (this.lifes < 1){
+      ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
+      ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
       ctx.fillStyle = "black";
       ctx.fillRect(50, 200, 400, 250);
       ctx.font = "32px Helvetica";

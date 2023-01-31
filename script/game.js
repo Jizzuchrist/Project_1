@@ -294,9 +294,11 @@ class Game {
       ctx.fillText(`Your final score`, 135, 350);
       ctx.fillText(`${this.score}`, 230, 400);
       this.stop();
+      
      }
   }
-}
+  }
+
           
           
 

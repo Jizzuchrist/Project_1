@@ -15,40 +15,20 @@ const shot_fired = new Audio("../sounds/10 Guage Shotgun-SoundBible.com-74120584
 shot_fired.volume = 0.05;
 
 
-
-
-/* tx.fillStyle= "white";
-ctx.strokeStyle= "white";
-ctx.lineWidth = 0;
-
-ctx.beginPath();
-ctx.rect(0,0,1000,30);
-ctx.fill();
-ctx.stroke();
-
-ctx.font = "24px sans-serif";
-ctx.textAlign ="center";
-ctx.textBaseline ="middle";
-ctx.fillStyle = "White";
-ctx.fillText("START", 250,125 ) */
-
-
-
-
-
  window.onload = () => {
     document.getElementById('button').onclick = () => {
       game.start();
       document.getElementById("btnDiv").classList.add("hidden");
-  }}
+  } 
+/* getElementById("restart-button"){
+  game.start();
+} */
+}
  
-/*    const button = document.getElementsByClassName("container-button");
-  button.addEventListener("click", () => {
-    button
 
-})  */
 
-  
+
+
 document.addEventListener("keydown", (e) => {
     switch(e.code){
         case "ArrowRight" : 

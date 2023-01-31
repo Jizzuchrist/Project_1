@@ -134,3 +134,4 @@ class Bullets extends Component{
         return !(this.bottom() < duck.top() || this.top() > duck.bottom() || this.right() < duck.left() || this.left() > duck.right())
     }
 }
+

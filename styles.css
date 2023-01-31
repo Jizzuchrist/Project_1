@@ -19,13 +19,15 @@ body {
 
 #button{
  font-family: 'Kavoon', cursive;
- width: 8vw;
- height: 9vh;
+ width: 30vw;
+ height: 15vh;
  margin-left: 15px;
- background-color:rgb(20, 96, 155);
+/*  background-color:rgb(24, 133, 10); */
  border-radius: 8px;
- font-size: 19px;
- color: white;
+ font-size: 30px;
+ color:white;
+ text-shadow: -3px -3px 10px black;
+ background-image: url("https://media.istockphoto.com/id/1077425288/pt/foto/texture-of-small-green-grass-background-close-up-ground-garden.jpg?s=170667a&w=0&k=20&c=ypN_yEMbu64RJNeFvTVCjY2ToShApQ-bkFHBqvTjaag=");
  
 /*  position: absolute;
   left:  30%;
@@ -38,7 +40,9 @@ body {
 
 h1{
     font-family: 'Kavoon', cursive;
-    color: whitesmoke;
+    color:white;
+    font-size: 50px;
+    text-shadow: -1px -1px 5px black;
 }
 
 #instruction{
@@ -52,10 +56,27 @@ h1{
 ul{
    
     color:white;
+    text-shadow: -1px -1px 5px black;
     list-style: none;
     height: 140px;
     font-family: 'Kavoon', cursive;
-    font-size: 18px;
+    font-size: 25px;
     margin:10px 0;
+    margin-bottom: 5vh;
+    background-color: rgba(6, 6, 6, 0.183);
 }
 
+
+.container-button{
+    position:absolute;
+    top: 10vh;
+    display:list-item;
+    text-align: center;
+    font-family:'Kavoon', cursive;
+    align-items: center;
+   
+}
+
+.hidden{
+    display: none;
+}

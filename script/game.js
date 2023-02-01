@@ -7,17 +7,19 @@ const game_over = new Audio("../sounds/game_over.mp3");
 
 
 class Game {
-    constructor(ctx, width, height, gun) {
+    constructor(ctx, width, height, gun, donald) {
       this.ctx = ctx;
       this.width = width;
       this.height = height;
       this.gun = gun;
+      this.donald = donald;
       this.intervalId = null;
       this.frames = 0;
       this.ducksLeft = [];
       this.ducksRight = [];
       this.bullet = [];
       this.heart = [];
+      this.eggs = [];
       this.magazine = 5;
       this.score = 0;
       this.lifes = 2;
@@ -25,6 +27,7 @@ class Game {
       this.feather.src = "../images/feather.png";
       this.animation = false;
       this.time = 0;
+      this.currentTime = 0;
       this.duckX
       this.duckY
       this.check = false;
@@ -39,70 +42,101 @@ class Game {
         this.check = false;
         this.intervalId = setInterval(this.update, 1000 / 60);
       }
-    
+    getMinutes() {
+      return Math.floor((this.currentTime / 3600) % 60);
+    }
+    getSeconds() {
+      return Math.floor((this.currentTime / 60) % 60);
+    }
+    computeTwoDigitNumber(value) {
+      if (value <= 9){
+        return `0${value}`
+      }else {
+        return `${value}`
+      }
+    }
+
     update = () => {
     //Game logic here
         this.frames++;
         console.log(this.frames)
+        this.currentTime ++;
+        this.frames ++;
         this.clear();
         this.gun.draw();
         this.gun.newPos();
         this.gun.boundaries();
-        /* this.bullet.draw(); */
         this.duckAnimation(this.duckX, this.duckY)
         this.updateBullets();
         this.updateHeart();
         this.updateObstaclesLeft();
         this.updateObstaclesRight();
+        this.updateEggs();
+        this.donald.newPos();
         this.collisionDetectionLeft();
         this.collisionDetectionRight();
         this.collisionDetectionHeart();
+        this.collisionDetectionDonald();
+        this.collisionDetectionEggs();
+        this.collisionDetectionEggsGun(); 
         this.drawInfoImages();
         this.checkGameOver();
         if(this.check){
           this.drawEnd();
         }
-        /* this.checkGameOver(); */
     }
+
     stop(){
       clearInterval(this.intervalId);
     }
+
     clear(){
       this.ctx.clearRect(0,0,this.width, this.height)
     }
+
     updateObstaclesLeft(){
-      for (let i = 0; i < this.ducksLeft.length; i++) {
-        if(this.ducksLeft[i].x > 1000){
-          this.ducksLeft.splice(i,1)
-          this.lifes -=1 ;
-          this.score -=2 ;
-    setTimeout( () => {
-            this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx))
-          }, 5000);
-        
-        }
-        this.ducksLeft[i].x += 20;
-        this.ducksLeft[i].draw();}
-        if (this.frames % 220 === 0) {
-          let y = 0;
-          while (y <= 50 || y >= 150) {
-            y = Math.floor((Math.random() * 150) + 50);
+      // BOSS SHOWING UP
+      if(this.currentTime > 600) {
+        this.ducksLeft = [];
+        this.donald.draw();
+          if (this.donald.x >= 800){
+            this.donald.speedX = -4;
+          } else if( this.donald.x <= 0){
+            this.donald.speedX = 4;}
+      } 
+      //DUCKS AND HEARTS SHOWING UP
+
+        for (let i = 0; i < this.ducksLeft.length; i++) {
+          if(this.ducksLeft[i].x > 1000){
+            this.ducksLeft.splice(i,1);
+            this.lifes -=1 ;
+            this.score -=2 ;
+            let heartSpeed = Math.floor((Math.random() )* 4 - 4);
+            setTimeout( () => {
+              if (heartSpeed > 0){
+              this.heart.push(new Heart(0, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) ) }
+              else {
+                this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) )
+              }
+            }, 5000);
           }
-        /* let y = (Math.floor((Math.random() * 150) + 50)); */
-        //calculate the height of the columns/ducksLeft
-        //these variables control the size of the gap between obstacles
-/*         let minGap = 200;
-        let maxGap = 350;
-        //this creates the gap
-        let gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap); */
-        //add the obstacles to the array
-        //top obstacle
-        this.ducksLeft.push(new DucksL(0, y, 70, 50, this.ctx));
-        //bottom obstacle
-        /* this.ducksLeft.push(new DucksL(0, this.width - gap, 70, 50, this.ctx)); */
-      }
-    } 
+          this.ducksLeft[i].x += 1;
+          this.ducksLeft[i].draw();
+        }
+          if (this.frames % 220 === 0) {
+            let y = 0;
+              while (y <= 50 || y >= 150) {
+                y = Math.floor((Math.random() * 150) + 50);
+              }
+            this.ducksLeft.push(new DucksL(0, y, 70, 50, this.ctx));
+          }
+    
+    }
     updateObstaclesRight(){
+      // DELETING DUCKS FROM THE SCREEN
+      if(this.currentTime > 600) {
+        this.ducksRight = [];
+      } 
       for (let i = 0; i < this.ducksRight.length; i++) {
         if(this.ducksRight[i].x < 0){
           this.ducksRight.splice(i,1)
@@ -119,7 +153,6 @@ class Game {
         }
         this.ducksRight[i].x -= 20;
         this.ducksRight[i].draw();
-        /* console.log(this.ducksRight) */
       }
       if (this.frames % 220 === 0) {
           let y = 150;
@@ -129,18 +162,30 @@ class Game {
         this.ducksRight.push(new DucksR(1000, y, 70, 50, this.ctx));
       } 
     } 
+
     updateBullets(){
       for (let i = 0; i < this.bullet.length; i++) {
-/*         if(this.bullet[i].y < 0){
-          this.bullet.splice(i,1)
-        } */
         this.bullet[i].y -= 10;
         this.bullet[i].draw();
       }
-      
+    }
+
+    updateEggs(){
+      if (this.currentTime > 600){
+        for(let i = 0; i < this.eggs.length; i++){  
+            this.eggs[i].speedY = +2; 
+            this.eggs[i].newPos();     
+            this.eggs[i].draw(); 
+          if(this.eggs[i].y > 600){
+            this.eggs.splice(i,1);
+          } 
+       }
+        if (this.frames % 60 === 0){
+          this.eggs.push(new Egg (this.donald.x + 80, this.donald.y + 200, 20, 20, this.ctx))
+        }  
+      } 
     }
     updateHeart(){
-      
       for (let i = 0; i < this.heart.length; i++) {
         this.heart[i].newPos();
         this.heart[i].draw();
@@ -148,22 +193,23 @@ class Game {
     }
 
     drawInfoImages() {
-/*       ctx.fillRect(200, 100, 100, 100);
-      ctx.clearRect(220, 120, 90, 90); */
+      ctx.font = "20px Kavoon";
+      ctx.fillStyle = "black";
+      ctx.fillText(`Time: ${this.computeTwoDigitNumber(this.getMinutes())}:${this.computeTwoDigitNumber(this.getSeconds())}`, 700, 30);
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`Score: ${this.score}`, 80, 30);
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
-      ctx.fillText(`Lives: `, 190, 30);
+      ctx.fillText(`Lifes: `, 190, 30);
       if (this.lifes === 2){
         this.lifesImage.src="../images/heart.png"
         this.lifesImage2.src="../images/emptyheart.png";
         ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
-        ctx.drawImage(this.lifesImage, 280, 12, 25, 20);
+        ctx.drawImage(this.lifesImage, 275, 12, 25, 20);
       } if( this.lifes === 1){
         ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
-        ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+        ctx.drawImage(this.lifesImage2, 275, 12, 20, 20);
       }
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
@@ -191,10 +237,6 @@ class Game {
         ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
       }
     }
-    /*     drawCollision(x, y){
-      feather.image.src = "../images/feather.png";
-      ctx.drawImage(feather, x, y, 70, 50);
-    } */
 
     duckAnimation(x,y){
       if (this.animation){
@@ -202,12 +244,10 @@ class Game {
         setTimeout(() => {
           this.animation = false
         }, 500)
-        }
+      }
     }  
 
     collisionDetectionLeft(){
-  /*     let x = 0;
-      let y = 0; */
       for (let c = 0; c < this.ducksLeft.length; c++){
         for(let d = 0; d < this.bullet.length; d++){
           if(this.bullet[d].crashWith(this.ducksLeft[c])){
@@ -218,26 +258,21 @@ class Game {
             this.animation = true; 
             this.ducksLeft.splice(c,1);
             this.bullet.splice(d,1);
-          /*    console.log(this.animation);  */
           }
         }
       }
     }
-
-/*         if(this.animation){
-          this.ctx.drawImage(this.feather, duckX, duckY , 70, 50)
-          this.time++;
-          console.log(this.time);
+    collisionDetectionEggs(){
+      for (let c = 0; c < this.eggs.length; c++){
+        for(let d = 0; d < this.bullet.length; d++){
+          if(this.bullet[d].crashWith(this.eggs[c])){
+            this.eggs.splice(c,1);
+            this.bullet.splice(d,1);
+          }
         }
-        if(this.time > 60){
-          this.time = 0;
-          this.animation = false; 
-         console.log(this.time)
-         }  */
- /*      }
-    } 
-       */
-   
+      }
+    }
+    
     collisionDetectionRight(){
       for (let c = 0; c < this.ducksRight.length; c++){
         for(let d = 0; d < this.bullet.length; d++){
@@ -249,74 +284,68 @@ class Game {
             quack_sound.play();
             this.ducksRight.splice(c,1);
             this.bullet.splice(d,1);
-         /*  feather.image.src = "../images/feather.png";
-          ctx.drawImage(feather, this.ducksRight[c].x, this.ducksRight[c].y, this.ducksRight[c].w, this.ducksRight[c].h); */
+          }
         }
       }
     }
-  }
-  collisionDetectionHeart(){
-    for (let c = 0; c < this.heart.length; c++){
-      for(let d = 0; d < this.bullet.length; d++){
-        if(this.bullet[d].crashWith(this.heart[c])){
-          this.lifes += 1;
-          this.heart.splice(c,1);
-          this.bullet.splice(d,1);
+
+    collisionDetectionHeart(){
+      for (let c = 0; c < this.heart.length; c++){
+        for(let d = 0; d < this.bullet.length; d++){
+          if(this.bullet[d].crashWith(this.heart[c])){
+            this.lifes += 1;
+            this.heart.splice(c,1);
+            this.bullet.splice(d,1);
+          }
+        }
       }
-    }
   }
-}
-  
-  checkGameOver(){
-     if (this.lifes < 1){
-      console.log(this.lifes)
-      /* game_over.play() 
-      ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
-      ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
-      ctx.fillStyle = "rgba(6, 6, 6, 0.471)";
-      ctx.fillRect(150, 200, 700, 350);
-      ctx.font = "40px Kavoon";
-      ctx.fillStyle = "red";
-      ctx.fillText(`GAME OVER`, 420, 300);
+  collisionDetectionDonald(){
+    for (let c = 0; c < this.bullet.length; c++){
+        if(this.bullet[c].crashWith(this.donald)){
+          this.donald.health -= 1;
+          console.log(this.donald.health);
+          this.bullet.splice(c,1);
+          }
+        }
+      }
+      
+      collisionDetectionEggsGun(){
+      for (let c = 0; c < this.eggs.length; c++){
+        if(this.eggs[c].crashWith(this.gun)){
+          this.lifes -= 1;
+          this.eggs.splice(c,1);
+          let heartSpeed = Math.floor((Math.random() )* 4 - 4);
+          setTimeout( () => {
+            if (heartSpeed > 0){
+            this.heart.push(new Heart(0, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) ) }
+            else {
+              this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) )
+            }
+          }, 5000);
+          }
+        }
+      } 
+      winGameOver(){
+        if (this.donald.health === 0) {
+
+        }
+      }
+      checkGameOver(){
+        if (this.lifes < 1){
+          ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
+          ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+          ctx.fillStyle = "black";
+          ctx.fillRect(50, 200, 400, 250);
+          ctx.font = "32px Helvetica";
+          ctx.fillStyle = "red";
+      ctx.fillText(`GAME OVER`, 150, 300);
       ctx.fillStyle = "white";
       ctx.fillText(`Your final score`, 390, 400);
-      ctx.fillText(`${this.score}`, 390, 450); */
+      ctx.fillText(`${this.score}`, 390, 450);
       this.stop();
       this.check = true;
-  /* this.lifes = 2; 
-   this.frames = 0;
-   this.intervalId = null;
-   this.ducksLeft = [];
-   this.ducksRight = [];
-   this.bullet = [];
-   this.heart = [];
-   this.magazine = 5;
-   this.score = 0;
-   this.animation = false;
-   this.time = 0; */
-      
-   /* this.intervalId = null;
-   this.frames = 0;
-   this.ducksLeft = [];
-   this.ducksRight = [];
-   this.bullet = [];
-   this.heart = [];
-   this.magazine = 5;
-   this.score = 0;
-   this.animation = false;
-   this.time = 0; */
-      /* this.gun = gun;
-      this.intervalId = null;
-      this.frames= 0;
-      this.ducksLeft = [];
-      this.ducksRight = [];
-      this.bullet = [];
-      this.heart = [];
-      this.magazine = 5;
-      this.score = 0;
-      this.animation = false;
-      this.time = 0; */
-      /* ctx.drawImage(this.crazyDuck,80, 200, 400, 400)  */
+  
       document.getElementById("btnRestart").classList.remove("hidden") 
      }
   }
@@ -337,22 +366,7 @@ class Game {
     this.clear()
     clearTimeout(timeOut, timeOut1)
     let score = document.getElementById("score")
-    score.innerText = ` Your score is: ${this.score}`
-    
-    
-    /*
-    ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
-    ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
-    ctx.fillStyle = "rgba(6, 6, 6, 0.471)";
-    ctx.fillRect(150, 200, 700, 350);
-    ctx.font = "40px Kavoon";
-    ctx.fillStyle = "red";
-    ctx.fillText(`GAME OVER`, 420, 300);
-    ctx.fillStyle = "white";
-      ctx.fillText(`Your final score`, 390, 400);
-      ctx.fillText(`${this.score}`, 390, 450);
-      ctx.drawImage(this.crazyDuck,80, 200, 400, 400)  */
-      
+    score.innerText = ` Your score is: ${this.score}`    
     }
   }
 

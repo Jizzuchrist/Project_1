@@ -10,7 +10,6 @@ const donald = new Boss (1000, 50, 200, 200, this.ctx);
 
 const game = new Game(ctx, canvas.width, canvas.height, gun, donald);
 
-
 const reload_sound = new Audio("../sounds/First Shell.mp3");
 reload_sound.volume = 1;
 

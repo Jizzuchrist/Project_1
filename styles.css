@@ -4,19 +4,22 @@
     display:flex;
     justify-content: center;
     
+    
 }
 
 body { 
-    background-image: url("https://images.squarespace-cdn.com/content/v1/5c04f61af2e6b1c86712ecf2/1619548217379-TP0SIFG24PEXPL58GOUH/pexels-jahoo-clouseau-388415.jpg?format=1500w");
-
-    
+    background-image: url("../images/field.jpeg");
+    background-size: 100% 108.5%;
+    background-repeat: no-repeat;
   }
 
 #canvas {
     background:url("./images/field.jpeg") no-repeat;
     background-size: 100% 100%;
     margin-top: 50px;
+    box-shadow:2px 5px 50px white;
 }
+
 
 #button{
  font-family: 'Kavoon', cursive;
@@ -40,7 +43,7 @@ body {
 }
 
 h1{
-    font-family: 'Kavoon', cursive;
+    font-family: 'Kavoon';
     color:white;
     font-size: 50px;
     text-shadow: -1px -1px 5px black;
@@ -51,8 +54,8 @@ h1{
     color: white;
     padding-top: 10px;
     margin:10px;
-    font-family: 'Kavoon', cursive;
-
+    font-family: 'Kavoon';
+    list-style: none;
 }
 
 ul{
@@ -66,11 +69,10 @@ ul{
     margin:10px 0;
     margin-bottom: 5vh;
     background-color:  rgba(6, 6, 6, 0.471);
-    height: 30vh;
+    height: 35vh;
     width: 55vw;
     border-radius: 25px;
 }
-
 
 .container-button{
     position:absolute;
@@ -79,6 +81,7 @@ ul{
     text-align: center;
     font-family:'Kavoon', cursive;
     align-items: center;
+    list-style: none;
    
 }
 
@@ -86,5 +89,63 @@ ul{
     display: none;
 }
 
+.show{
+    display:list-item;
+}
 
 
+#btnRestart{
+    position:absolute;
+    top: 9vh;
+    margin-left: 840px;
+    size: 500px;
+    text-align: center;
+    font-family:'Kavoon';
+    align-items: center;
+    list-style: none;
+}
+
+#restart-button {
+    font-family: 'Kavoon';
+    width: 8vw;
+    height: 5vh;
+    margin-left: 15px;
+    border-radius: 8px;
+    font-size: 23px;
+    color:white;
+    text-shadow: -3px -3px 10px black;
+    background-image: url("https://media.istockphoto.com/id/1077425288/pt/foto/texture-of-small-green-grass-background-close-up-ground-garden.jpg?s=170667a&w=0&k=20&c=ypN_yEMbu64RJNeFvTVCjY2ToShApQ-bkFHBqvTjaag=");
+}
+
+#container-gameover{
+   position:absolute;
+    color:white;
+    background-color: rgba(6, 6, 6, 0.471);
+    text-shadow: -1px -1px 5px black;
+    font-family: 'Kavoon', cursive;
+    font-size: 35px;
+    /* padding-top: 5%; */
+    margin-bottom: 5vh;
+    background-color:  rgba(6, 6, 6, 0.471);
+    height: 67vh;
+    width: 65vw;
+    border-radius: 25px;
+    top: 18vh;
+    text-align: center;
+}
+
+#gameover-paragraph {
+    color: red;
+    text-shadow: -1px -1px 5px black;
+    font-size: 50px;
+}
+
+#crazy-duck{
+    height:50vh;
+    width: 40vw;
+    margin-right: 550px;
+    margin-left: -10px;
+    margin-top: -121px;
+    position: absolute; 
+    display:list-item;
+}

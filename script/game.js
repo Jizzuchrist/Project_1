@@ -3,8 +3,7 @@
 const quack_sound = new Audio("../sounds/duck-quack-112941.mp3")
 quack_sound.volume = 1;
 
-
-
+const game_over = new Audio("../sounds/game_over.mp3"); 
 
 
 class Game {
@@ -14,7 +13,7 @@ class Game {
       this.height = height;
       this.gun = gun;
       this.intervalId = null;
-      this.frames= 0;
+      this.frames = 0;
       this.ducksLeft = [];
       this.ducksRight = [];
       this.bullet = [];
@@ -28,18 +27,23 @@ class Game {
       this.time = 0;
       this.duckX
       this.duckY
+      this.check = false;
       this.lifesImage = new Image();
       this.lifesImage2 = new Image();
       this.magazineImage = new Image();
+      this.crazyDuck = new Image();
+      this.crazyDuck.src = "../images/crazy_duck.png";
     }
 
     start() {
-        this.intervalId = setInterval(this.update, 1000 / 60)
+        this.check = false;
+        this.intervalId = setInterval(this.update, 1000 / 60);
       }
     
     update = () => {
     //Game logic here
-        this.frames ++;
+        this.frames++;
+        console.log(this.frames)
         this.clear();
         this.gun.draw();
         this.gun.newPos();
@@ -55,7 +59,9 @@ class Game {
         this.collisionDetectionHeart();
         this.drawInfoImages();
         this.checkGameOver();
-      
+        if(this.check){
+          this.drawEnd();
+        }
         /* this.checkGameOver(); */
     }
     stop(){
@@ -70,14 +76,15 @@ class Game {
           this.ducksLeft.splice(i,1)
           this.lifes -=1 ;
           this.score -=2 ;
-          setTimeout( () => {
-            this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx))}, 5000);
+    setTimeout( () => {
+            this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx))
+          }, 5000);
+        
         }
-        this.ducksLeft[i].x += 1;
-        this.ducksLeft[i].draw();
-      }
-      if (this.frames % 220 === 0) {
-        let y = 0;
+        this.ducksLeft[i].x += 20;
+        this.ducksLeft[i].draw();}
+        if (this.frames % 220 === 0) {
+          let y = 0;
           while (y <= 50 || y >= 150) {
             y = Math.floor((Math.random() * 150) + 50);
           }
@@ -94,7 +101,6 @@ class Game {
         //bottom obstacle
         /* this.ducksLeft.push(new DucksL(0, this.width - gap, 70, 50, this.ctx)); */
       }
-      
     } 
     updateObstaclesRight(){
       for (let i = 0; i < this.ducksRight.length; i++) {
@@ -109,9 +115,9 @@ class Game {
             else {
               this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) )
             }
-          }, 5000);
+          }, 5000); 
         }
-        this.ducksRight[i].x -= 1;
+        this.ducksRight[i].x -= 20;
         this.ducksRight[i].draw();
         /* console.log(this.ducksRight) */
       }
@@ -120,21 +126,8 @@ class Game {
           while (y <= 150 || y >= 300) {
             y = Math.floor((Math.random() * 200) + 150);
           }
-       /*  let y = Math.floor((Math.random() * 250) + 150); */
-        //calculate the height of the columns/ducksRight
-        //these variables control the size of the gap between obstacles
-/*         let minGap = 300;
-        let maxGap = 600;
-        //this creates the gap
-        let gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap); */
-        //add the obstacles to the array
-        //top obstacle
         this.ducksRight.push(new DucksR(1000, y, 70, 50, this.ctx));
-        //bottom obstacle
-     /*    this.ducksRight.push(new DucksR(1000, gap - this.width, 70, 50, this.ctx)); */
-/*         console.log(gap); */
-      }
-      
+      } 
     } 
     updateBullets(){
       for (let i = 0; i < this.bullet.length; i++) {
@@ -157,10 +150,10 @@ class Game {
     drawInfoImages() {
 /*       ctx.fillRect(200, 100, 100, 100);
       ctx.clearRect(220, 120, 90, 90); */
-      ctx.font = "20px Helvetica";
+      ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`Score: ${this.score}`, 80, 30);
-      ctx.font = "20px Helvetica";
+      ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`Lives: `, 190, 30);
       if (this.lifes === 2){
@@ -172,7 +165,7 @@ class Game {
         ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
         ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
       }
-      ctx.font = "20px Helvetica";
+      ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`Ammo: `, 310, 30);
       if (this.magazine === 5){
@@ -273,24 +266,94 @@ class Game {
     }
   }
 }
-
   
   checkGameOver(){
      if (this.lifes < 1){
+      console.log(this.lifes)
+      /* game_over.play() 
       ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
       ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
-      ctx.fillStyle = "black";
-      ctx.fillRect(50, 200, 400, 250);
-      ctx.font = "32px Helvetica";
+      ctx.fillStyle = "rgba(6, 6, 6, 0.471)";
+      ctx.fillRect(150, 200, 700, 350);
+      ctx.font = "40px Kavoon";
       ctx.fillStyle = "red";
-      ctx.fillText(`GAME OVER`, 150, 300);
+      ctx.fillText(`GAME OVER`, 420, 300);
       ctx.fillStyle = "white";
-      ctx.fillText(`Your final score`, 135, 350);
-      ctx.fillText(`${this.score}`, 230, 400);
+      ctx.fillText(`Your final score`, 390, 400);
+      ctx.fillText(`${this.score}`, 390, 450); */
       this.stop();
+      this.check = true;
+  /* this.lifes = 2; 
+   this.frames = 0;
+   this.intervalId = null;
+   this.ducksLeft = [];
+   this.ducksRight = [];
+   this.bullet = [];
+   this.heart = [];
+   this.magazine = 5;
+   this.score = 0;
+   this.animation = false;
+   this.time = 0; */
       
+   /* this.intervalId = null;
+   this.frames = 0;
+   this.ducksLeft = [];
+   this.ducksRight = [];
+   this.bullet = [];
+   this.heart = [];
+   this.magazine = 5;
+   this.score = 0;
+   this.animation = false;
+   this.time = 0; */
+      /* this.gun = gun;
+      this.intervalId = null;
+      this.frames= 0;
+      this.ducksLeft = [];
+      this.ducksRight = [];
+      this.bullet = [];
+      this.heart = [];
+      this.magazine = 5;
+      this.score = 0;
+      this.animation = false;
+      this.time = 0; */
+      /* ctx.drawImage(this.crazyDuck,80, 200, 400, 400)  */
+      document.getElementById("btnRestart").classList.remove("hidden") 
      }
   }
+
+  drawEnd() {
+    if (this.lifes === 2){
+      this.lifesImage.src="../images/heart.png"
+      this.lifesImage2.src="../images/emptyheart.png";
+      ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
+      ctx.drawImage(this.lifesImage, 280, 12, 25, 20);
+    } if( this.lifes === 1){
+      ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
+      ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+    } 
+    game_over.play() 
+    document.getElementById("btnRestart").classList.remove("hidden");
+    document.getElementById("container-gameover").classList.remove("hidden");
+    this.clear()
+    clearTimeout(timeOut, timeOut1)
+    let score = document.getElementById("score")
+    score.innerText = ` Your score is: ${this.score}`
+    
+    
+    /*
+    ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
+    ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+    ctx.fillStyle = "rgba(6, 6, 6, 0.471)";
+    ctx.fillRect(150, 200, 700, 350);
+    ctx.font = "40px Kavoon";
+    ctx.fillStyle = "red";
+    ctx.fillText(`GAME OVER`, 420, 300);
+    ctx.fillStyle = "white";
+      ctx.fillText(`Your final score`, 390, 400);
+      ctx.fillText(`${this.score}`, 390, 450);
+      ctx.drawImage(this.crazyDuck,80, 200, 400, 400)  */
+      
+    }
   }
 
           

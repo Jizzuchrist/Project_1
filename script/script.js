@@ -18,7 +18,6 @@ const shot_fired = new Audio("../sounds/10 Guage Shotgun-SoundBible.com-74120584
 shot_fired.volume = 0.05;
 /* const restartBtn = document.getElementById("btnRestart"); */
 
-let btn1 = document.getElementById("restart-button")
 let btn = document.getElementById("restart-button").style.display='none';
 
 
@@ -38,23 +37,6 @@ let btn = document.getElementById("restart-button").style.display='none';
       game.score = 0;
       game.time=0;
       document.getElementById("btnDiv").classList.add("hidden");
-
-    
-
-
-
-btn.onclick = () => {
-
-  game.start()
-}
-
-
-
-
-
-
-
-
 
  /*   document.getElementById("btnRestart").classList.add("show")   */
   } 
@@ -81,6 +63,9 @@ btn.onclick = () => {
   /* game.start(); */
     
 /* }   */ 
+}
+function showButton(){
+  btn = document.getElementById("restart-button").style.display="block";
 }
 /* restartBtn.onclick = () => {
   

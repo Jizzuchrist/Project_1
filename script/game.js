@@ -120,10 +120,10 @@ class Game {
               }
             }, 5000);
           }
-          this.ducksLeft[i].x += 1;
+          this.ducksLeft[i].x += 20;
           this.ducksLeft[i].draw();
         }
-          if (this.frames % 220 === 0) {
+          if (this.frames % 260 === 0) {
             let y = 0;
               while (y <= 50 || y >= 150) {
                 y = Math.floor((Math.random() * 150) + 50);
@@ -151,10 +151,10 @@ class Game {
             }
           }, 5000); 
         }
-        this.ducksRight[i].x -= 1;
+        this.ducksRight[i].x -= 20;
         this.ducksRight[i].draw();
       }
-      if (this.frames % 220 === 0) {
+      if (this.frames % 260 === 0) {
           let y = 150;
           while (y <= 150 || y >= 300) {
             y = Math.floor((Math.random() * 200) + 150);
@@ -180,7 +180,7 @@ class Game {
             this.eggs.splice(i,1);
           } 
        }
-        if (this.frames % 60 === 0){
+        if (this.frames % 80 === 0){
           this.eggs.push(new Egg (this.donald.x + 80, this.donald.y + 200, 20, 20, this.ctx))
         }  
       } 
@@ -335,11 +335,12 @@ class Game {
         if (this.lifes < 1){
           ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
           ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
-      this.stop();
-      this.check = true;
-  
+        this.stop();
+        this.check = true;
+        
       document.getElementById("btnRestart").classList.remove("hidden") 
      }
+     
   }
 
   drawEnd() {
@@ -357,7 +358,7 @@ class Game {
     document.getElementById("btnRestart").classList.remove("hidden") 
     document.getElementById("container-gameover").classList.remove("hidden");
     this.clear()
-    clearTimeout(timeOut, timeOut1)
+    showButton();
     let score = document.getElementById("score")
     score.innerText = ` Your score is: ${this.score}`    
     }

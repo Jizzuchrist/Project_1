@@ -10,7 +10,6 @@ const donald = new Boss (1000, 50, 200, 200, this.ctx);
 
 const game = new Game(ctx, canvas.width, canvas.height, gun, donald);
 
-
 const reload_sound = new Audio("../sounds/First Shell.mp3");
 reload_sound.volume = 1;
 
@@ -24,24 +23,15 @@ let btn = document.getElementById("restart-button").style.display='none';
  window.onload = () => { 
     document.getElementById('button').onclick = () => {
       game.start();
-      /* console.log(game.ducksLeft)
-      console.log(game.ducksRight) */
-    /*   console.log(game.lifes) */
-      game.lifes = 2;
-      game.frames = 0;
-      game.ducksLeft = [];
-      game.ducksRight = [];
-      game.bullet=[];
-      game.heart =[]
-      game.magazine = 5;
-      game.score = 0;
-      game.time=0;
       document.getElementById("btnDiv").classList.add("hidden");
-  } 
-}
+      document.getElementById("container-hard").classList.add("hidden");
+    } 
+  }
+
 function showButton(){
   btn = document.getElementById("restart-button").style.display="block";
 }
+
 
 document.addEventListener("keydown", (e) => {
     switch(e.code){

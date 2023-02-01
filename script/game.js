@@ -96,7 +96,7 @@ class Game {
 
     updateObstaclesLeft(){
       // BOSS SHOWING UP
-      if(this.currentTime > 600) {
+      if(this.currentTime > 3600) {
         this.ducksLeft = [];
         this.donald.draw();
           if (this.donald.x >= 800){
@@ -134,7 +134,7 @@ class Game {
     }
     updateObstaclesRight(){
       // DELETING DUCKS FROM THE SCREEN
-      if(this.currentTime > 600) {
+      if(this.currentTime > 3600) {
         this.ducksRight = [];
       } 
       for (let i = 0; i < this.ducksRight.length; i++) {
@@ -151,7 +151,7 @@ class Game {
             }
           }, 5000); 
         }
-        this.ducksRight[i].x -= 20;
+        this.ducksRight[i].x -= 1;
         this.ducksRight[i].draw();
       }
       if (this.frames % 220 === 0) {
@@ -171,7 +171,7 @@ class Game {
     }
 
     updateEggs(){
-      if (this.currentTime > 600){
+      if (this.currentTime > 3600){
         for(let i = 0; i < this.eggs.length; i++){  
             this.eggs[i].speedY = +2; 
             this.eggs[i].newPos();     
@@ -370,6 +370,4 @@ class Game {
     }
   }
 
-          
-          
-
+      

@@ -43,12 +43,9 @@ let btn = document.getElementById("restart-button").style.display='none';
 
 
 
-btn.onclick = () => {
-
-  game.start()
+function showButton(){
+  btn = document.getElementById("restart-button").style.display='block';
 }
-
-
 
 
 

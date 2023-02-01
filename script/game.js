@@ -335,14 +335,6 @@ class Game {
         if (this.lifes < 1){
           ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
           ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
-          ctx.fillStyle = "black";
-          ctx.fillRect(50, 200, 400, 250);
-          ctx.font = "32px Helvetica";
-          ctx.fillStyle = "red";
-      ctx.fillText(`GAME OVER`, 150, 300);
-      ctx.fillStyle = "white";
-      ctx.fillText(`Your final score`, 390, 400);
-      ctx.fillText(`${this.score}`, 390, 450);
       this.stop();
       this.check = true;
   
@@ -361,7 +353,8 @@ class Game {
       ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
     } 
     game_over.play() 
-    document.getElementById("btnRestart").classList.remove("hidden");
+    showButton();
+    document.getElementById("btnRestart").classList.remove("hidden") 
     document.getElementById("container-gameover").classList.remove("hidden");
     this.clear()
     clearTimeout(timeOut, timeOut1)

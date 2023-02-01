@@ -8,17 +8,19 @@ quack_sound.volume = 1;
 
 
 class Game {
-    constructor(ctx, width, height, gun) {
+    constructor(ctx, width, height, gun, donald) {
       this.ctx = ctx;
       this.width = width;
       this.height = height;
       this.gun = gun;
+      this.donald = donald;
       this.intervalId = null;
-      this.frames= 0;
+      this.frames = 0;
       this.ducksLeft = [];
       this.ducksRight = [];
       this.bullet = [];
       this.heart = [];
+      this.eggs = [];
       this.magazine = 5;
       this.score = 0;
       this.lifes = 2;
@@ -35,7 +37,7 @@ class Game {
     }
 
     start() {
-        this.intervalId = setInterval(this.update, 1000 / 60)
+      this.intervalId = setInterval(this.update, 1000 / 60)
         
       }
     getMinutes() {
@@ -52,7 +54,6 @@ class Game {
       }
     }
 
-
     update = () => {
     //Game logic here
         this.currentTime ++;
@@ -66,9 +67,14 @@ class Game {
         this.updateHeart();
         this.updateObstaclesLeft();
         this.updateObstaclesRight();
+        this.updateEggs();
+        this.donald.newPos();
         this.collisionDetectionLeft();
         this.collisionDetectionRight();
         this.collisionDetectionHeart();
+        this.collisionDetectionDonald();
+        this.collisionDetectionEggs();
+        this.collisionDetectionEggsGun(); 
         this.drawInfoImages();
         this.checkGameOver();
     }
@@ -82,13 +88,20 @@ class Game {
     }
 
     updateObstaclesLeft(){
+      // BOSS SHOWING UP
       if(this.currentTime > 600) {
         this.ducksLeft = [];
-      }
-      /* if (this.currentTime < 600){ */
+        this.donald.draw();
+          if (this.donald.x >= 800){
+            this.donald.speedX = -4;
+          } else if( this.donald.x <= 0){
+            this.donald.speedX = 4;}
+      } 
+      //DUCKS AND HEARTS SHOWING UP
+
         for (let i = 0; i < this.ducksLeft.length; i++) {
           if(this.ducksLeft[i].x > 1000){
-            this.ducksLeft.splice(i,1)
+            this.ducksLeft.splice(i,1);
             this.lifes -=1 ;
             this.score -=2 ;
             let heartSpeed = Math.floor((Math.random() )* 4 - 4);
@@ -110,17 +123,13 @@ class Game {
               }
             this.ducksLeft.push(new DucksL(0, y, 70, 50, this.ctx));
           }
-       /* else {
-          this.ducksLeft.splice(0, ducksLeft.length - 1)
-      }  */
-    } 
-
+    
+    }
     updateObstaclesRight(){
+      // DELETING DUCKS FROM THE SCREEN
       if(this.currentTime > 600) {
         this.ducksRight = [];
-        
-      }
-      /* if (this.currentTime < 600){ */
+      } 
       for (let i = 0; i < this.ducksRight.length; i++) {
         if(this.ducksRight[i].x < 0){
           this.ducksRight.splice(i,1)
@@ -145,9 +154,6 @@ class Game {
             }
           this.ducksRight.push(new DucksR(1000, y, 70, 50, this.ctx));
         }
-      /* } else {
-        this.ducksRight.splice(0, ducksRight.length - 1);
-      } */
     } 
 
     updateBullets(){
@@ -157,6 +163,21 @@ class Game {
       }
     }
 
+    updateEggs(){
+      if (this.currentTime > 600){
+        for(let i = 0; i < this.eggs.length; i++){  
+            this.eggs[i].speedY = +2; 
+            this.eggs[i].newPos();     
+            this.eggs[i].draw(); 
+          if(this.eggs[i].y > 600){
+            this.eggs.splice(i,1);
+          } 
+       }
+        if (this.frames % 60 === 0){
+          this.eggs.push(new Egg (this.donald.x + 80, this.donald.y + 200, 20, 20, this.ctx))
+        }  
+      } 
+    }
     updateHeart(){
       for (let i = 0; i < this.heart.length; i++) {
         this.heart[i].newPos();
@@ -234,7 +255,17 @@ class Game {
         }
       }
     }
-
+    collisionDetectionEggs(){
+      for (let c = 0; c < this.eggs.length; c++){
+        for(let d = 0; d < this.bullet.length; d++){
+          if(this.bullet[d].crashWith(this.eggs[c])){
+            this.eggs.splice(c,1);
+            this.bullet.splice(d,1);
+          }
+        }
+      }
+    }
+    
     collisionDetectionRight(){
       for (let c = 0; c < this.ducksRight.length; c++){
         for(let d = 0; d < this.bullet.length; d++){
@@ -251,26 +282,62 @@ class Game {
       }
     }
 
-  collisionDetectionHeart(){
-    for (let c = 0; c < this.heart.length; c++){
-      for(let d = 0; d < this.bullet.length; d++){
-        if(this.bullet[d].crashWith(this.heart[c])){
-          this.lifes += 1;
-          this.heart.splice(c,1);
-          this.bullet.splice(d,1);
+    collisionDetectionHeart(){
+      for (let c = 0; c < this.heart.length; c++){
+        for(let d = 0; d < this.bullet.length; d++){
+          if(this.bullet[d].crashWith(this.heart[c])){
+            this.lifes += 1;
+            this.heart.splice(c,1);
+            this.bullet.splice(d,1);
+          }
         }
       }
-    }
   }
+  collisionDetectionDonald(){
+    for (let c = 0; c < this.bullet.length; c++){
+        if(this.bullet[c].crashWith(this.donald)){
+          this.donald.health -= 1;
+          console.log(this.donald.health);
+          this.bullet.splice(c,1);
+          /* if (this.donald.health < 1) {
+              this.donald = null;
+            } */
+          }
+        }
+      }
+      
+      collisionDetectionEggsGun(){
+      for (let c = 0; c < this.eggs.length; c++){
+        if(this.eggs[c].crashWith(this.gun)){
+          this.lifes -= 1;
+          this.eggs.splice(c,1);
+          let heartSpeed = Math.floor((Math.random() )* 4 - 4);
+          setTimeout( () => {
+            if (heartSpeed > 0){
+            this.heart.push(new Heart(0, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) ) }
+            else {
+              this.heart.push(new Heart(1000, Math.floor((Math.random() * 300) + 50), 70, 50, this.ctx, heartSpeed) )
+            }
+          }, 5000);
+          //if (this.donald.health < 1) {
+              //this.donald = null;
+          //} 
+          }
+        }
+      } 
+      winGameOver(){
+        if (this.donald.health === 0) {
 
-  checkGameOver(){
-     if (this.lifes < 1){
-      ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
-      ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
-      ctx.fillStyle = "black";
-      ctx.fillRect(50, 200, 400, 250);
-      ctx.font = "32px Helvetica";
-      ctx.fillStyle = "red";
+        }
+      }
+      checkGameOver(){
+        if (this.lifes < 1){
+          ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
+          ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+          ctx.fillStyle = "black";
+          ctx.fillRect(50, 200, 400, 250);
+          ctx.font = "32px Helvetica";
+          ctx.fillStyle = "red";
       ctx.fillText(`GAME OVER`, 150, 300);
       ctx.fillStyle = "white";
       ctx.fillText(`Your final score`, 135, 350);

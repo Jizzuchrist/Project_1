@@ -6,7 +6,9 @@ const ctx = canvas.getContext("2d");
 
 const gun = new Component(462.5, 465, 65, 135, ctx);
 
-const game = new Game(ctx, canvas.width, canvas.height, gun);
+const donald = new Boss (1000, 50, 200, 200, this.ctx);
+
+const game = new Game(ctx, canvas.width, canvas.height, gun, donald);
 
 
 const reload_sound = new Audio("../sounds/First Shell.mp3");

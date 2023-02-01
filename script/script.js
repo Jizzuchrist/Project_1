@@ -24,76 +24,12 @@ let btn = document.getElementById("restart-button").style.display='none';
  window.onload = () => { 
     document.getElementById('button').onclick = () => {
       game.start();
-      /* console.log(game.ducksLeft)
-      console.log(game.ducksRight) */
-    /*   console.log(game.lifes) */
-      game.lifes = 2;
-      game.frames = 0;
-      game.ducksLeft = [];
-      game.ducksRight = [];
-      game.bullet=[];
-      game.heart =[]
-      game.magazine = 5;
-      game.score = 0;
-      game.time=0;
       document.getElementById("btnDiv").classList.add("hidden");
-
- /*   document.getElementById("btnRestart").classList.add("show")   */
   } 
-
- /* document.getElementById("restart-button").onclick = () => { */
-    
-   /*  let game = new Game(ctx, canvas.width, canvas.height, gun); */
-   /* game.check = false; */
-  /*  document.getElementById("btnRestart").classList.add("hidden");
-   /* game.lifes = 2
-   game.frames = 0; 
-   game.lifes = 2;
-   game.frames = 0;
-   game.intervalId = null;
-   game.ducksLeft = [];
-   game.ducksRight = [];
-   game.bullet = [];
-   game.heart = [];
-   game.magazine = 5;
-   game.score = 0;
-   game.animation = false;
-   game.time = 0;
-  console.log(game.lifes) *
-  /* game.start(); */
-    
-/* }   */ 
 }
 function showButton(){
   btn = document.getElementById("restart-button").style.display="block";
 }
-/* restartBtn.onclick = () => {
-  
-  restartBtn.classList.add("hidden");
-  document.getElementById("btnDiv").classList.remove("hidden");
-  document.getElementById("container-gameover").classList.add("hidden");
-  document.getElementById("restartbutton").style.display=none; */
-  /* game.clear()
-   game.lifes = 2;
-   game.frames = 0;
-   game.intervalId = null;
-   game.ducksLeft = [];
-   game.ducksRight = [];
-   game.bullet = [];
-   game.heart = [];
-   game.magazine = 5;
-   game.score = 0;
-   game.animation = false;
-   game.time = 0;
-  console.log(game.lifes) */
-  /* game.start(); */
-  
- 
-/* } */
- 
-
-
-
 
 document.addEventListener("keydown", (e) => {
     switch(e.code){

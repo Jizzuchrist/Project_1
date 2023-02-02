@@ -24,7 +24,8 @@ let btn = document.getElementById("restart-button").style.display='none';
     document.getElementById('button').onclick = () => {
       game.start();
       document.getElementById("btnDiv").classList.add("hidden");
-      document.getElementById("container-hard").classList.add("hidden");
+      document.getElementById("arrows-info").classList.remove("hidden");
+      document.getElementById("keys-info").classList.remove("hidden");
     } 
   }
 

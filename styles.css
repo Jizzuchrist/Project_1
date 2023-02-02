@@ -82,7 +82,7 @@ ul{
     margin:10px 0;
     margin-bottom: 2vh;
     background-color:  rgba(6, 6, 6, 0.471);
-    height: 40vh;
+    height: 35vh;
     width: 55vw;
     border-radius: 25px;
 }
@@ -143,14 +143,16 @@ ul{
     height: 67vh;
     width: 65vw;
     border-radius: 25px;
-    top: 18vh;
-    text-align: center;
+    top: 20vh;
+    text-align: center; 
 }
 
 #gameover-paragraph {
     color: red;
     text-shadow: -1px -1px 5px black;
     font-size: 50px;
+    text-align: center;
+     
 }
 
 #crazy-duck{
@@ -172,3 +174,62 @@ ul{
     align-items: center;
     list-style: none;
 }
+
+#arrows-info{
+    position: absolute;
+    top: 50vh;
+    font-family: kavoon;
+    font-size:30px;
+    background-color: rgba(6, 6, 6, 0.471);
+    border-radius: 10px;
+    width: 13vw;
+    height: 28vh;
+    color: white;
+    text-shadow: -1px -1px 5px black;
+}
+
+#arrows-info img{
+height: 10vh;
+width: 10vw;
+padding-left: 20px;
+}
+
+#arrows-info p{
+    text-align: center;
+}
+
+#keys-info{  
+    position:absolute;
+    top: 40vh;
+    background-color: rgba(6, 6, 6, 0.471);
+    color: white;
+    text-shadow: -1px -1px 5px black;
+    width: 13vw;
+    height: 45vh;
+    border-radius: 10px;
+    margin-left: 1210px;
+    }
+
+
+.keys-paragraph{
+color: white;
+text-shadow: -1px -1px 5px black;
+font-family: kavoon;
+font-size:30px;
+text-align: center;
+}
+
+.keys-img{
+    margin-left: 60px;
+
+}
+
+#key-w{
+    width: 5vw;
+    height: 6vh;
+}
+
+#key-r{
+width:5vw;
+height: 6vh;
+}  

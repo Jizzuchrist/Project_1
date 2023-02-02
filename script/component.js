@@ -13,7 +13,7 @@ class Component{
     }
 
     draw(){
-      this.image.src="../images/shotgun.png"
+      this.image.src="./images/shotgun.png"
       ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
 
@@ -63,7 +63,7 @@ class DucksL extends Component {
         this.speedX = 0;
     }
     draw(){
-        this.image.src="../images/pato.png"
+        this.image.src="./images/pato.png"
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){
@@ -95,7 +95,7 @@ class DucksR extends Component {
         this.speedX = 0;
     }
     draw(){
-        this.image.src="../images/pato-invertido.png"
+        this.image.src="./images/pato-invertido.png"
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){
@@ -127,7 +127,7 @@ class Bullets extends Component{
         this.speedY = 0;
     }
     draw(){
-        this.image.src="../images/bullet.png";
+        this.image.src="./images/bullet.png";
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){
@@ -162,7 +162,7 @@ class Heart extends Component{
             this.speedX = heartSpeed;
     }
     draw(){
-        this.image.src="../images/heart.png";
+        this.image.src="./images/heart.png";
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){
@@ -195,7 +195,7 @@ class Boss extends Component{
         this.health = 20;
     }
     draw(){
-        this.image.src="../images/madDuck.png";
+        this.image.src="./images/madDuck.png";
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){
@@ -228,7 +228,7 @@ class Egg extends Component{
         this.speedY = 0;
     }
     draw(){
-        this.image.src="../images/eggweapon.png";
+        this.image.src="./images/eggweapon.png";
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
     newPos(){

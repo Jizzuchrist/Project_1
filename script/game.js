@@ -129,10 +129,9 @@ class Game {
             }, 5000);
           }
           this.ducksLeft[i].x += 1;
-          this.ducksLeft[i].x += 1;
           this.ducksLeft[i].draw();
         }
-          if (this.frames % 260 === 0) {
+          if (this.frames % 360 === 0) {
             let y = 0;
               while (y <= 50 || y >= 150) {
                 y = Math.floor((Math.random() * 150) + 50);
@@ -163,7 +162,7 @@ class Game {
         this.ducksRight[i].x -= 1;
         this.ducksRight[i].draw();
       }
-      if (this.frames % 260 === 0) {
+      if (this.frames % 360 === 0) {
           let y = 150;
           while (y <= 150 || y >= 300) {
             y = Math.floor((Math.random() * 200) + 150);

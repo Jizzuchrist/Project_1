@@ -358,25 +358,25 @@ class Game {
       let name = prompt('Enter username:');
       const newScore = {username: name, Highscore: score};
       localStorage.setItem("highScore1", JSON.stringify(newScore))
-    } else if (this.highScore2 === null){
-      let name = prompt('Enter username:');
-      const newScore = {username: name, Highscore: score};
-      localStorage.setItem("highScore2", JSON.stringify(newScore))
-    } else if(this.highScore3 === null){
-      let name = prompt('Enter username:');
-      const newScore = {username: name, Highscore: score};
-      localStorage.setItem("highScore3", JSON.stringify(newScore))
     } else if(score > this.highScore1.Highscore){
       let name = prompt('Enter username:');
       const newScore = {username: name, Highscore: score};
       /* localStorage.setItem("highScore2", JSON.stringify(this.highScore1));
       localStorage.setItem("highScore3", JSON.stringify(this.highScore2)); */
       localStorage.setItem("highScore1", JSON.stringify(newScore))
+    } else if (this.highScore2 === null){
+      let name = prompt('Enter username:');
+      const newScore = {username: name, Highscore: score};
+      localStorage.setItem("highScore2", JSON.stringify(newScore))
     } else if (score > this.highScore2.Highscore){
     let name = prompt('Enter username:');
     const newScore = {username: name, Highscore: score};
     /* localStorage.setItem("highScore3", JSON.stringify(this.highScore2)); */
     localStorage.setItem("highScore2", JSON.stringify(newScore))
+    } else if(this.highScore3 === null){
+      let name = prompt('Enter username:');
+      const newScore = {username: name, Highscore: score};
+      localStorage.setItem("highScore3", JSON.stringify(newScore))
     } else if (score > this.highScore3.Highscore){
     let name = prompt('Enter username:');
     const newScore = {username: name, Highscore: score};
@@ -390,7 +390,7 @@ class Game {
   drawEnd() {
     if (this.lifes === 2){
       this.lifesImage.src="images/heart.png"
-      this.lifesImage2.src="images/emptyheart.png";
+      this.lifesImage2.src="/images/emptyheart.png";
       ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
       ctx.drawImage(this.lifesImage, 280, 12, 25, 20);
     } if( this.lifes === 1){

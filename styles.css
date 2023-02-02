@@ -12,8 +12,24 @@ body {
     background-size: 100% 108.5%;
     background-repeat: no-repeat;
     height: 100vh;
+    width: 100vw;
   }
-
+#container-win{
+    position:absolute;
+    color:white;
+    background-color: rgba(6, 6, 6, 0.471);
+    text-shadow: -1px -1px 5px black;
+    font-family: 'Kavoon', cursive;
+    font-size: 35px;
+    /* padding-top: 5%; */
+    margin-bottom: 5vh;
+    background-color:  rgba(6, 6, 6, 0.471);
+    height: 67vh;
+    width: 65vw;
+    border-radius: 25px;
+    top: 20vh;
+    text-align: center; 
+}
 #canvas {
     background:url("images/field.jpeg") no-repeat;
     background-size: 100% 100%;
@@ -43,6 +59,18 @@ body {
   padding:10px; */
 }
 
+#button3{
+    font-family: 'Kavoon', cursive;
+    width: 15vw;
+    height: 10vh;
+    margin-left: 15px;
+   /*  background-color:rgb(24, 133, 10); */
+    border-radius: 8px;
+    font-size: 30px;
+    color:white;
+    text-shadow: -3px -3px 10px black;
+    background-image: url("https://media.istockphoto.com/id/1077425288/pt/foto/texture-of-small-green-grass-background-close-up-ground-garden.jpg?s=170667a&w=0&k=20&c=ypN_yEMbu64RJNeFvTVCjY2ToShApQ-bkFHBqvTjaag=");
+}
 #button2 {
         font-family: 'Kavoon', cursive;
         width: 15vw;
@@ -99,6 +127,7 @@ ul{
    
 }
 #highScores{
+    text-align: center;
     margin-top: 100px;
     position: absolute;
 

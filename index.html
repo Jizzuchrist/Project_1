@@ -26,7 +26,8 @@
             <li>To shoot press "W" to reload the gun press "R"</li>
             <li>Try to kill Donald Duck</li>
         </ul> 
-       <button id="button">Start Game</button> 
+       <button id="button">EZ Mode</button> 
+       <button id="button3">Hard Mode</button>
        <button id="button2">HighScores</button>
        <!-- <form>
         <label for="name" id="label"> Username </label>
@@ -48,9 +49,14 @@
    <div class="hidden" id="btnRestart">
         <button id="restart-button">RESTART</button>
     </div>
+    <div id="container-win" class="hidden" >
+        <p id="gameover-paragraph">You win</p>
+        <p id="score1"></p>
+        <img id ="crazy-duck" src="images/crazy_duck.png" alt="crazy-duck">
+    </div>
 <div id="container-gameover" class="hidden" >
     <p id="gameover-paragraph">Game Over</p>
-    <p id="score"> Your total score is:</p>
+    <p id="score"> </p>
     <img id ="crazy-duck" src="images/crazy_duck.png" alt="crazy-duck">
 </div>
  <div id="keys-info" class="hidden">
@@ -60,6 +66,7 @@
     <img class="keys-img" id="key-r" src="images/r.png" alt="">
 
 </div> 
+    <script src="script/hardmode.js"></script>
     <script src="script/game.js"></script>
     <script src="script/component.js"></script>
     <script src="script/script.js"></script>

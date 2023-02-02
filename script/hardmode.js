@@ -1,13 +1,13 @@
 /** @type {HTMLCanvasElement} */
 
-const quack_sound = new Audio("sounds/duck-quack-112941.mp3")
-quack_sound.volume = 1;
+const quack_sound1 = new Audio("sounds/duck-quack-112941.mp3")
+quack_sound1.volume = 1;
 
-const game_over = new Audio("sounds/game_over.mp3"); 
+const game_over1 = new Audio("sounds/game_over.mp3"); 
 
 
 
-class Game {
+class HardGame {
     constructor(ctx, width, height, gun, donald) {
       this.ctx = ctx;
       this.width = width;
@@ -23,7 +23,7 @@ class Game {
       this.bullet = [];
       this.heart = [];
       this.eggs = [];
-      this.magazine = 5;
+      this.magazine = 8;
       this.score = 0;
       this.lifes = 2;
       this.feather = new Image();
@@ -86,8 +86,8 @@ class Game {
         this.collisionDetectionEggs();
         this.collisionDetectionEggsGun(); 
         this.drawInfoImages();
-        this.winGameOver();
         this.checkGameOver();
+        this.winGameOver();
         if(this.check){
           this.drawEnd();
         } 
@@ -107,17 +107,17 @@ class Game {
         this.ducksLeft = [];
         this.donald.draw();
           if (this.donald.x >= 800){
-            this.donald.speedX = -4;
+            this.donald.speedX = -6;
           } else if( this.donald.x <= 0){
-            this.donald.speedX = 4;}
+            this.donald.speedX = 6;}
       } 
       //DUCKS AND HEARTS SHOWING UP
 
         for (let i = 0; i < this.ducksLeft.length; i++) {
           if(this.ducksLeft[i].x > 1000){
             this.ducksLeft.splice(i,1);
-            this.lifes -=1 ;
-            this.score -=2 ;
+            this.lifes -= 1;
+            this.score -= 2;
             let heartSpeed = Math.floor((Math.random() )* 4 - 4);
             setTimeout( () => {
               if (heartSpeed > 0){
@@ -127,10 +127,10 @@ class Game {
               }
             }, 5000);
           }
-          this.ducksLeft[i].x += 1;
+          this.ducksLeft[i].x += 2;
           this.ducksLeft[i].draw();
         }
-          if (this.frames % 320 === 0) {
+          if (this.frames % 300 === 0) {
             let y = 0;
               while (y <= 50 || y >= 150) {
                 y = Math.floor((Math.random() * 150) + 50);
@@ -158,10 +158,10 @@ class Game {
             }
           }, 5000); 
         }
-        this.ducksRight[i].x -= 1;
+        this.ducksRight[i].x -= 2;
         this.ducksRight[i].draw();
       }
-      if (this.frames % 320 === 0) {
+      if (this.frames % 300 === 0) {
           let y = 150;
           while (y <= 150 || y >= 300) {
             y = Math.floor((Math.random() * 200) + 150);
@@ -180,7 +180,7 @@ class Game {
     updateEggs(){
       if (this.currentTime > 3600){
         for(let i = 0; i < this.eggs.length; i++){  
-            this.eggs[i].speedY = +2; 
+            this.eggs[i].speedY = +3; 
             this.eggs[i].newPos();     
             this.eggs[i].draw(); 
           if(this.eggs[i].y > 600){
@@ -221,28 +221,52 @@ class Game {
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`Ammo: `, 310, 30);
-      if (this.magazine === 5){
-        this.magazineImage.src="images/bullet-info.png";
-        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 460, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 485, 20, 20, 10);
-      } else if (this.magazine === 4){
-        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 460, 20, 20, 10);        
-      } else if (this.magazine === 3){
-        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
-      } else if (this.magazine === 2){
-        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
-        ctx.drawImage(this.magazineImage, 410, 20, 20, 10);      
-      } else if (this.magazine === 1){
-        ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
-      }
+        if(this.magazine === 8){
+            this.magazineImage.src="images/bullet-info.png";
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 460, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 485, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 510, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 535, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 560, 20, 20, 10);
+        } else if (this.magazine === 7){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 460, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 485, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 510, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 535, 20, 20, 10);
+        } else if (this.magazine === 6){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 460, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 485, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 510, 20, 20, 10);
+        }  else if (this.magazine === 5){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 460, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 485, 20, 20, 10);
+        } else if (this.magazine === 4){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 460, 20, 20, 10);        
+        } else if (this.magazine === 3){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
+        } else if (this.magazine === 2){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+            ctx.drawImage(this.magazineImage, 410, 20, 20, 10);      
+        } else if (this.magazine === 1){
+            ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
+        }
     }
 
     duckAnimation(x,y){
@@ -258,7 +282,7 @@ class Game {
       for (let c = 0; c < this.ducksLeft.length; c++){
         for(let d = 0; d < this.bullet.length; d++){
           if(this.bullet[d].crashWith(this.ducksLeft[c])){
-            quack_sound.play();
+            quack_sound1.play();
             this.score += 2;
             this.duckX = this.ducksLeft[c].x;
             this.duckY = this.ducksLeft[c].y;
@@ -288,7 +312,7 @@ class Game {
             this.duckX= this.ducksRight[c].x;
             this.duckY = this.ducksRight[c].y;
             this.animation = true; 
-            quack_sound.play();
+            quack_sound1.play();
             this.ducksRight.splice(c,1);
             this.bullet.splice(d,1);
           }
@@ -311,7 +335,7 @@ class Game {
     for (let c = 0; c < this.bullet.length; c++){
         if(this.bullet[c].crashWith(this.donald)){
           this.donald.health -= 1;
-          this.score += 2;
+          this.score += 3;
           console.log(this.donald.health);
           this.bullet.splice(c,1);
           }
@@ -349,9 +373,9 @@ class Game {
           ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
           ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
           this.check = true;
+          game_over1.play();
           let score = document.getElementById("score")
           score.innerText = ` Your score is: ${this.score}`
-          game_over.play();
           document.getElementById("btnRestart").classList.remove("hidden") 
           document.getElementById("container-gameover").classList.remove("hidden");
           this.stop();
@@ -408,8 +432,6 @@ class Game {
     document.getElementById("btnRestart").classList.remove("hidden");
     this.clear()
     showButton();
+     
     }
   }
-
- 
-      

@@ -10,6 +10,10 @@ const donald = new Boss (1000, 50, 200, 200, this.ctx);
 
 const game = new Game(ctx, canvas.width, canvas.height, gun, donald);
 
+
+const hardGame = new HardGame(ctx, canvas.width, canvas.height, gun, donald);
+
+
 const reload_sound = new Audio("sounds/First Shell.mp3");
 reload_sound.volume = 1;
 
@@ -27,12 +31,85 @@ const input = document.querySelector('input');
       document.getElementById("btnDiv").classList.add("hidden");
       document.getElementById("arrows-info").classList.remove("hidden");
       document.getElementById("keys-info").classList.remove("hidden");
+      document.addEventListener("keydown", (e) => {
+        switch(e.code){
+            case "ArrowRight" : 
+                gun.speedX += 3; 
+                break;
+            case "ArrowLeft" : 
+                gun.speedX -= 3;
+                break;
+            case "KeyW" :
+              if (game.magazine > 0){
+                  shot_fired.play();
+                  game.magazine -= 1;
+                  game.bullet.push(new Bullets (gun.x + 5,gun.y - 25 , 10, 40, ctx))
+                  game.bullet.speedY -= 2;
+                }
+                    break;
+            case "KeyR" :
+              if(game.magazine === 0){
+                reload_sound.play();
+                setTimeout( () => {
+                  game.magazine = 5;
+                }, 1000)
+                }
+              break;
+              }
+    })
+    
+    
+    document.addEventListener("keyup", () => { 
+      gun.speedX = 0;
+      gun.speedY = 0;
+    
+    })
   } 
 }
+
+document.getElementById('button3').onclick = () => {
+  hardGame.start();
+  document.getElementById("btnDiv").classList.add("hidden");
+  document.getElementById("arrows-info").classList.remove("hidden");
+  document.getElementById("keys-info").classList.remove("hidden");
+  document.addEventListener("keydown", (e) => {
+    switch(e.code){
+        case "ArrowRight" : 
+            gun.speedX += 3; 
+            break;
+        case "ArrowLeft" : 
+            gun.speedX -= 3;
+            break;
+        case "KeyW" :
+          if (hardGame.magazine > 0){
+              shot_fired.play();
+              hardGame.magazine -= 1;
+              hardGame.bullet.push(new Bullets (gun.x + 5,gun.y - 25 , 10, 40, ctx))
+              hardGame.bullet.speedY -= 2;
+            }
+                break;
+        case "KeyR" :
+          if(hardGame.magazine === 0){
+            reload_sound.play();
+            setTimeout( () => {
+              hardGame.magazine = 8;
+            }, 1000)
+            }
+          break;
+          }
+})
+
+
+document.addEventListener("keyup", () => { 
+  gun.speedX = 0;
+  gun.speedY = 0;
+
+})
+} 
 document.getElementById('button2').onclick = ()  => {
   document.getElementById('btnDiv').classList.add('hidden');
   document.getElementById('highScores').classList.remove('hidden');
-  
+
 const firstLi = document.getElementById('li1');
 const secondLi = document.getElementById('li2');
 const thirdLi = document.getElementById('li3');
@@ -58,7 +135,7 @@ const backToMenu = document.querySelector('#backToMenu')
   } 
   backToMenu.addEventListener('click', refreshPage)
 
-document.addEventListener("keydown", (e) => {
+/* document.addEventListener("keydown", (e) => {
     switch(e.code){
         case "ArrowRight" : 
             gun.speedX += 3; 
@@ -90,5 +167,5 @@ document.addEventListener("keyup", () => {
   gun.speedX = 0;
   gun.speedY = 0;
 
-})
+}) */
 

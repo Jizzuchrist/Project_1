@@ -192,7 +192,7 @@ class Boss extends Component{
         this.ctx = ctx;  
         this.image = new Image(); 
         this.speedX = 0;
-        this.health = 20;
+        this.health = 30;
     }
     draw(){
         this.image.src="images/madDuck.png";

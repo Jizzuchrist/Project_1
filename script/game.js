@@ -1,9 +1,9 @@
 /** @type {HTMLCanvasElement} */
 
-const quack_sound = new Audio("./sounds/duck-quack-112941.mp3")
+const quack_sound = new Audio("/sounds/duck-quack-112941.mp3")
 quack_sound.volume = 1;
 
-const game_over = new Audio("./sounds/game_over.mp3"); 
+const game_over = new Audio("/sounds/game_over.mp3"); 
 
 
 
@@ -27,7 +27,7 @@ class Game {
       this.score = 0;
       this.lifes = 2;
       this.feather = new Image();
-      this.feather.src = "./images/feather.png";
+      this.feather.src = "/images/feather.png";
       this.animation = false;
       this.time = 0;
       this.currentTime = 0;
@@ -38,7 +38,7 @@ class Game {
       this.lifesImage2 = new Image();
       this.magazineImage = new Image();
       this.crazyDuck = new Image();
-      this.crazyDuck.src = "./images/crazy_duck.png";
+      this.crazyDuck.src = "/images/crazy_duck.png";
       this.highScore1 = JSON.parse(localStorage.getItem("highScore1"))
       this.highScore2 = JSON.parse(localStorage.getItem("highScore2"))
       this.highScore3 = JSON.parse(localStorage.getItem("highScore3"))
@@ -212,8 +212,8 @@ class Game {
       ctx.fillStyle = "black";
       ctx.fillText(`Lifes: `, 190, 30);
       if (this.lifes === 2){
-        this.lifesImage.src="./images/heart.png"
-        this.lifesImage2.src="./images/emptyheart.png";
+        this.lifesImage.src="/images/heart.png"
+        this.lifesImage2.src="/images/emptyheart.png";
         ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
         ctx.drawImage(this.lifesImage, 275, 12, 25, 20);
       } if( this.lifes === 1){
@@ -224,7 +224,7 @@ class Game {
       ctx.fillStyle = "black";
       ctx.fillText(`Ammo: `, 310, 30);
       if (this.magazine === 5){
-        this.magazineImage.src="./images/bullet-info.png";
+        this.magazineImage.src="/images/bullet-info.png";
         ctx.drawImage(this.magazineImage, 385, 20, 20, 10);
         ctx.drawImage(this.magazineImage, 410, 20, 20, 10);
         ctx.drawImage(this.magazineImage, 435, 20, 20, 10);
@@ -389,8 +389,8 @@ class Game {
 
   drawEnd() {
     if (this.lifes === 2){
-      this.lifesImage.src="./images/heart.png"
-      this.lifesImage2.src="./images/emptyheart.png";
+      this.lifesImage.src="/images/heart.png"
+      this.lifesImage2.src="/images/emptyheart.png";
       ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
       ctx.drawImage(this.lifesImage, 280, 12, 25, 20);
     } if( this.lifes === 1){

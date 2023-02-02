@@ -10,10 +10,10 @@ const donald = new Boss (1000, 50, 200, 200, this.ctx);
 
 const game = new Game(ctx, canvas.width, canvas.height, gun, donald);
 
-const reload_sound = new Audio("../sounds/First Shell.mp3");
+const reload_sound = new Audio("./sounds/First Shell.mp3");
 reload_sound.volume = 1;
 
-const shot_fired = new Audio("../sounds/10 Guage Shotgun-SoundBible.com-74120584.wav")
+const shot_fired = new Audio("./sounds/10 Guage Shotgun-SoundBible.com-74120584.wav")
 shot_fired.volume = 0.05;
 /* const restartBtn = document.getElementById("btnRestart"); */
 
@@ -25,6 +25,8 @@ const input = document.querySelector('input');
     document.getElementById('button').onclick = () => {
       game.start();
       document.getElementById("btnDiv").classList.add("hidden");
+      document.getElementById("arrows-info").classList.remove("hidden");
+      document.getElementById("keys-info").classList.remove("hidden");
   } 
 }
 document.getElementById('button2').onclick = ()  => {

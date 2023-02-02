@@ -8,13 +8,13 @@
 }
 
 body { 
-    background-image: url("../images/field.jpeg");
+    background-image: url("images/field.jpeg");
     background-size: 100% 108.5%;
     background-repeat: no-repeat;
   }
 
 #canvas {
-    background:url("./images/field.jpeg") no-repeat;
+    background:url("images/field.jpeg") no-repeat;
     background-size: 100% 100%;
     margin-top: 50px;
     box-shadow:2px 5px 50px white;

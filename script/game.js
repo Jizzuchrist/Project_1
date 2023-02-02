@@ -121,6 +121,7 @@ class Game {
             }, 5000);
           }
           this.ducksLeft[i].x += 1;
+          this.ducksLeft[i].x += 1;
           this.ducksLeft[i].draw();
         }
           if (this.frames % 260 === 0) {
@@ -353,9 +354,8 @@ class Game {
       ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
       ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
     } 
-    game_over.play() 
-    showButton();
-    document.getElementById("btnRestart").classList.remove("hidden") 
+    game_over.play();
+    document.getElementById("btnRestart").classList.remove("hidden");
     document.getElementById("container-gameover").classList.remove("hidden");
     this.clear()
     showButton();

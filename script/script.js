@@ -19,6 +19,7 @@ shot_fired.volume = 0.05;
 
 let btn = document.getElementById("restart-button").style.display='none';
 
+const input = document.querySelector('input');   
 
  window.onload = () => { 
     document.getElementById('button').onclick = () => {
@@ -26,9 +27,34 @@ let btn = document.getElementById("restart-button").style.display='none';
       document.getElementById("btnDiv").classList.add("hidden");
   } 
 }
+document.getElementById('button2').onclick = ()  => {
+  document.getElementById('btnDiv').classList.add('hidden');
+  document.getElementById('highScores').classList.remove('hidden');
+  
+const firstLi = document.getElementById('li1');
+const secondLi = document.getElementById('li2');
+const thirdLi = document.getElementById('li3');
+firstLi.innerHTML = game.highScore1.Highscore + ' ' + game.highScore1.username;
+secondLi.innerHTML = game.highScore2.Highscore + ' ' + game.highScore2.username;
+thirdLi.innerHTML = game.highScore3.Highscore + ' ' + game.highScore3.username;
+}
+
 function showButton(){
   btn = document.getElementById("restart-button").style.display="block";
+  
+
+  const refreshButton = document.querySelector('#restart-button')
+  const refreshPage= () => {
+    window.location.reload();
+  } 
+  refreshButton.addEventListener('click', refreshPage)
 }
+
+const backToMenu = document.querySelector('#backToMenu')
+  const refreshPage= () => {
+    window.location.reload();
+  } 
+  backToMenu.addEventListener('click', refreshPage)
 
 document.addEventListener("keydown", (e) => {
     switch(e.code){

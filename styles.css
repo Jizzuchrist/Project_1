@@ -97,7 +97,25 @@ ul{
     list-style: none;
    
 }
+#highScores{
+    margin-top: 100px;
+    position: absolute;
 
+}
+/* .noStyle{
+    list-style: none;
+} */
+#backToMenu{
+    font-family: 'Kavoon';
+    width: 14vw;
+    height: 8vh;
+    margin-left: 15px;
+    border-radius: 8px;
+    font-size: 23px;
+    color:white;
+    text-shadow: -3px -3px 10px black;
+    background-image: url("https://media.istockphoto.com/id/1077425288/pt/foto/texture-of-small-green-grass-background-close-up-ground-garden.jpg?s=170667a&w=0&k=20&c=ypN_yEMbu64RJNeFvTVCjY2ToShApQ-bkFHBqvTjaag=");
+}
 .hidden{
     display: none;
 }

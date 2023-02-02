@@ -6,6 +6,7 @@ quack_sound.volume = 1;
 const game_over = new Audio("../sounds/game_over.mp3"); 
 
 
+
 class Game {
     constructor(ctx, width, height, gun, donald) {
       this.ctx = ctx;
@@ -13,6 +14,8 @@ class Game {
       this.height = height;
       this.gun = gun;
       this.donald = donald;
+      this.highscore = [];
+      this.value = [];
       this.intervalId = null;
       this.frames = 0;
       this.ducksLeft = [];
@@ -36,6 +39,9 @@ class Game {
       this.magazineImage = new Image();
       this.crazyDuck = new Image();
       this.crazyDuck.src = "../images/crazy_duck.png";
+      this.highScore1 = JSON.parse(localStorage.getItem("highScore1"))
+      this.highScore2 = JSON.parse(localStorage.getItem("highScore2"))
+      this.highScore3 = JSON.parse(localStorage.getItem("highScore3"))
     }
 
     start() {
@@ -84,6 +90,8 @@ class Game {
         if(this.check){
           this.drawEnd();
         }
+
+        
     }
 
     stop(){
@@ -305,6 +313,7 @@ class Game {
     for (let c = 0; c < this.bullet.length; c++){
         if(this.bullet[c].crashWith(this.donald)){
           this.donald.health -= 1;
+          this.score += 2;
           console.log(this.donald.health);
           this.bullet.splice(c,1);
           }
@@ -344,6 +353,40 @@ class Game {
      
   }
 
+  highScore (score) {
+    if(this.highScore1 === null){
+      let name = prompt('Enter username:');
+      const newScore = {username: name, Highscore: score};
+      localStorage.setItem("highScore1", JSON.stringify(newScore))
+    } else if (this.highScore2 === null){
+      let name = prompt('Enter username:');
+      const newScore = {username: name, Highscore: score};
+      localStorage.setItem("highScore2", JSON.stringify(newScore))
+    } else if(this.highScore3 === null){
+      let name = prompt('Enter username:');
+      const newScore = {username: name, Highscore: score};
+      localStorage.setItem("highScore3", JSON.stringify(newScore))
+    } else if(score > this.highScore1.Highscore){
+      let name = prompt('Enter username:');
+      const newScore = {username: name, Highscore: score};
+      /* localStorage.setItem("highScore2", JSON.stringify(this.highScore1));
+      localStorage.setItem("highScore3", JSON.stringify(this.highScore2)); */
+      localStorage.setItem("highScore1", JSON.stringify(newScore))
+    } else if (score > this.highScore2.Highscore){
+    let name = prompt('Enter username:');
+    const newScore = {username: name, Highscore: score};
+    /* localStorage.setItem("highScore3", JSON.stringify(this.highScore2)); */
+    localStorage.setItem("highScore2", JSON.stringify(newScore))
+    } else if (score > this.highScore3.Highscore){
+    let name = prompt('Enter username:');
+    const newScore = {username: name, Highscore: score};
+    localStorage.setItem("highScore3", JSON.stringify(newScore))
+    }
+
+
+  }
+
+
   drawEnd() {
     if (this.lifes === 2){
       this.lifesImage.src="../images/heart.png"
@@ -355,13 +398,15 @@ class Game {
       ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
     } 
     game_over.play();
+    this.highScore(this.score);
     document.getElementById("btnRestart").classList.remove("hidden");
     document.getElementById("container-gameover").classList.remove("hidden");
     this.clear()
     showButton();
     let score = document.getElementById("score")
-    score.innerText = ` Your score is: ${this.score}`    
+    score.innerText = ` Your score is: ${this.score}` 
     }
   }
 
+ 
       

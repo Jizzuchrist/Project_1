@@ -208,15 +208,15 @@ class Game {
       ctx.fillText(`Score: ${this.score}`, 80, 30);
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
-      ctx.fillText(`HP: `, 220, 30);
+      ctx.fillText(`HP: `, 200, 30);
       if (this.lifes === 2){
         this.lifesImage.src="images/heart.png"
         this.lifesImage2.src="images/emptyheart.png";
-        ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
-        ctx.drawImage(this.lifesImage, 275, 12, 25, 20);
+        ctx.drawImage(this.lifesImage, 230, 12, 25, 20);
+        ctx.drawImage(this.lifesImage, 255, 12, 25, 20);
       } if( this.lifes === 1){
-        ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
-        ctx.drawImage(this.lifesImage2, 275, 12, 20, 20);
+        ctx.drawImage(this.lifesImage, 230, 12, 25, 20);
+        ctx.drawImage(this.lifesImage2, 255, 12, 20, 20);
       }
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";

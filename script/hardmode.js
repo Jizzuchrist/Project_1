@@ -130,7 +130,7 @@ class HardGame {
           this.ducksLeft[i].x += 2;
           this.ducksLeft[i].draw();
         }
-          if (this.frames % 300 === 0) {
+          if (this.frames % 240 === 0) {
             let y = 0;
               while (y <= 50 || y >= 150) {
                 y = Math.floor((Math.random() * 150) + 50);
@@ -161,7 +161,7 @@ class HardGame {
         this.ducksRight[i].x -= 2;
         this.ducksRight[i].draw();
       }
-      if (this.frames % 300 === 0) {
+      if (this.frames % 240 === 0) {
           let y = 150;
           while (y <= 150 || y >= 300) {
             y = Math.floor((Math.random() * 200) + 150);
@@ -187,7 +187,7 @@ class HardGame {
             this.eggs.splice(i,1);
           } 
        }
-        if (this.frames % 80 === 0){
+        if (this.frames % 40 === 0){
           this.eggs.push(new Egg (this.donald.x + 80, this.donald.y + 200, 20, 20, this.ctx))
         }  
       } 

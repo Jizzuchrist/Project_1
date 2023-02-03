@@ -208,7 +208,7 @@ class HardGame {
       ctx.fillText(`Score: ${this.score}`, 80, 30);
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
-      ctx.fillText(`Lifes: `, 190, 30);
+      ctx.fillText(`HP: `, 190, 30);
       if (this.lifes === 2){
         this.lifesImage.src="images/heart.png"
         this.lifesImage2.src="images/emptyheart.png";

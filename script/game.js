@@ -203,9 +203,15 @@ class Game {
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`Time: ${this.computeTwoDigitNumber(this.getMinutes())}:${this.computeTwoDigitNumber(this.getSeconds())}`, 700, 30);
-      ctx.font = "20px Kavoon";
-      ctx.fillStyle = "black";
-      ctx.fillText(`Score: ${this.score}`, 80, 30);
+      if (this.score < 0){
+        ctx.font = "20px Kavoon";
+        ctx.fillStyle = "black";
+        ctx.fillText(`Score: 0`, 80, 30);
+      } else {
+          ctx.font = "20px Kavoon";
+          ctx.fillStyle = "black";
+          ctx.fillText(`Score: ${this.score}`, 80, 30); 
+      }
       ctx.font = "20px Kavoon";
       ctx.fillStyle = "black";
       ctx.fillText(`HP: `, 200, 30);
@@ -346,11 +352,16 @@ class Game {
       }
   checkGameOver(){
         if (this.lifes < 1){
-          ctx.drawImage(this.lifesImage2, 250, 12, 20, 20);
-          ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+          ctx.drawImage(this.lifesImage2, 230, 12, 20, 20);
+          ctx.drawImage(this.lifesImage2, 255, 12, 20, 20);
           this.check = true;
-          let score = document.getElementById("score")
-          score.innerText = ` Your score is: ${this.score}`
+          if (this.score < 0){
+            let score = document.getElementById("score")
+            score.innerText = ` Your score is: 0`
+          } else {
+            let score = document.getElementById("score")
+            score.innerText = ` Your score is: ${this.score}`
+          }
           game_over.play();
           document.getElementById("btnRestart").classList.remove("hidden") 
           document.getElementById("container-gameover").classList.remove("hidden");
@@ -398,11 +409,11 @@ class Game {
     if (this.lifes === 2){
       this.lifesImage.src="images/heart.png"
       this.lifesImage2.src="/images/emptyheart.png";
-      ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
-      ctx.drawImage(this.lifesImage, 280, 12, 25, 20);
+      ctx.drawImage(this.lifesImage, 230, 12, 25, 20);
+      ctx.drawImage(this.lifesImage, 255, 12, 25, 20);
     } if( this.lifes === 1){
-      ctx.drawImage(this.lifesImage, 250, 12, 25, 20);
-      ctx.drawImage(this.lifesImage2, 280, 12, 20, 20);
+      ctx.drawImage(this.lifesImage, 230, 12, 25, 20);
+      ctx.drawImage(this.lifesImage2, 255, 12, 20, 20);
     } 
     this.highScore(this.score);
     document.getElementById("btnRestart").classList.remove("hidden");

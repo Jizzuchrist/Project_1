@@ -32,7 +32,7 @@ body {
 }
 #canvas {
     background:url("images/field.jpeg") no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% 112%;
     margin-top: 50px;
     box-shadow:2px 5px 50px white;
 }
